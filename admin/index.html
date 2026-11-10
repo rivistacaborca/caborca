@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Caborca · pannello</title>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Pulsanti speciali dentro il testo dell'articolo: foto, galleria, nota a margine.
+    CMS.registerEditorComponent({
+      id: "foto", label: "Foto",
+      fields: [
+        {name: "src", label: "Foto", widget: "image"},
+        {name: "formato", label: "Formato", widget: "select", default: "testo",
+         options: [{label: "Larga (tutto lo schermo)", value: "larga"}, {label: "Nel testo", value: "testo"}, {label: "Di lato, piccola", value: "lato"}]},
+        {name: "didascalia", label: "Didascalia", widget: "string", required: false}
+      ],
+      pattern: /^\[\[foto (.*)\]\]$/ms,
+      fromBlock: m => { try { return JSON.parse(m[1]); } catch (e) { return {}; } },
+      toBlock: d => "[[foto " + JSON.stringify({src: d.src || "", formato: d.formato || "testo", didascalia: d.didascalia || ""}) + "]]",
+      toPreview: d => '<figure><img src="' + (d.src || "") + '" style="max-width:100%"><figcaption>' + (d.didascalia || "") + "</figcaption></figure>"
+    });
+    CMS.registerEditorComponent({
+      id: "galleria", label: "Galleria di foto",
+      fields: [{name: "foto", label: "Foto", widget: "list", fields: [
+        {name: "src", label: "Foto", widget: "image"},
+        {name: "didascalia", label: "Didascalia", widget: "string", required: false}]}],
+      pattern: /^\[\[galleria (.*)\]\]$/ms,
+      fromBlock: m => { try { return JSON.parse(m[1]); } catch (e) { return {foto: []}; } },
+      toBlock: d => "[[galleria " + JSON.stringify({foto: (d.foto || []).map(f => ({src: f.src || "", didascalia: f.didascalia || ""}))}) + "]]",
+      toPreview: d => (d.foto || []).map(f => '<img src="' + f.src + '" style="width:30%;margin:1%">').join("")
+    });
+    CMS.registerEditorComponent({
+      id: "nota", label: "Nota a margine",
+      fields: [{name: "testo", label: "Testo della nota", widget: "text"}],
+      pattern: /^\[\[nota (.*)\]\]$/ms,
+      fromBlock: m => ({testo: m[1]}),
+      toBlock: d => "[[nota " + (d.testo || "").replace(/\n+/g, " ") + "]]",
+      toPreview: d => '<p style="font-size:.9em;border-left:3px solid #999;padding-left:8px"><b>nota a margine ·</b> ' + (d.testo || "") + "</p>"
+    });
+  </script>
+</body>
+</html>

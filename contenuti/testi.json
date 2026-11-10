@@ -1,0 +1,16 @@
+{
+  "testi": [
+    {
+      "titolo": "Esempio: come si scrive un articolo",
+      "sottotitolo": "Questo articolo di prova mostra cosa si può fare dal pannello. Quando pubblichi i testi veri, cancellalo.",
+      "rubrica": "saggio",
+      "autore": "Redazione",
+      "data": "2027-01-01",
+      "copertina": "",
+      "didascalia_copertina": "",
+      "audio": "",
+      "corpo": "Questo è il primo paragrafo: sul sito comincia con la lettera grande. Si può scrivere in **grassetto**, in *corsivo* e mettere un [link](https://www.instagram.com/rivistacaborca/).\n\nUna {parola difficile|Si scrive tra parentesi graffe: la parola, una barra verticale e la spiegazione.} si tocca e mostra la spiegazione.\n\n## Un titoletto\n\nIl testo continua dopo il titoletto.\n\n[[nota Questa è una nota a margine: si inserisce con il pulsante + nel pannello.]]\n\n> Una citazione, con il pulsante delle virgolette.\n\nUltimo paragrafo.",
+      "pubblicato": false
+    }
+  ]
+}

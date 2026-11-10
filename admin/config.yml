@@ -1,0 +1,53 @@
+# Pannello di Caborca (Decap CMS)
+# Da completare quando il sito è online: il nome del repository GitHub e il dominio.
+backend:
+  name: github
+  repo: rivistacaborca/caborca
+  branch: main
+  base_url: https://api.netlify.com
+locale: it
+site_url: https://caborca.it
+media_folder: foto
+public_folder: /foto
+
+collections:
+  - name: rivista
+    label: Rivista
+    files:
+      - name: testi
+        label: Articoli
+        file: contenuti/testi.json
+        format: json
+        fields:
+          - name: testi
+            label: Articoli
+            label_singular: articolo
+            widget: list
+            summary: "{{fields.titolo}} · {{fields.rubrica}} · {{fields.autore}}"
+            add_to_top: true
+            fields:
+              - {name: titolo, label: Titolo, widget: string}
+              - {name: sottotitolo, label: "Sottotitolo (due righe per l'indice)", widget: text}
+              - name: rubrica
+                label: Rubrica
+                widget: select
+                options:
+                  - {label: Saggi, value: saggio}
+                  - {label: Contemporaneo, value: contemporaneo}
+                  - {label: Racconti, value: racconto}
+                  - {label: Poesia, value: poesia}
+                  - {label: Libri, value: libri}
+                  - {label: Film, value: film}
+              - {name: autore, label: Autore, widget: string}
+              - {name: data, label: "Data di pubblicazione", widget: datetime, date_format: "DD/MM/YYYY", time_format: false}
+              - {name: copertina, label: "Foto di copertina", widget: image, required: false}
+              - {name: didascalia_copertina, label: "Didascalia della copertina", widget: string, required: false}
+              - {name: audio, label: "Audio (lettura dell'articolo, mp3)", widget: file, required: false}
+              - {name: minuti, label: "Minuti di lettura (vuoto = calcolo automatico)", widget: number, required: false}
+              - name: corpo
+                label: Testo
+                widget: markdown
+                buttons: [bold, italic, link, heading-two, quote, bulleted-list]
+                editor_components: [foto, galleria, nota]
+                hint: "Per una parola difficile scrivi {parola|spiegazione}: sul sito diventa una parola che si tocca e mostra la spiegazione."
+              - {name: pubblicato, label: "Pubblicato", widget: boolean, default: true}

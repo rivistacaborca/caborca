@@ -1,0 +1,22 @@
+CABORCA – come mettere online il sito con il pannello
+
+Cosa c'è in questa cartella
+- index.html ............ il sito
+- admin/ ................ il pannello per scrivere gli articoli (indirizzo: www.tuodominio.it/admin)
+- contenuti/testi.json .. gli articoli (li scrive il pannello, non va toccato a mano)
+- foto/ ................. le foto caricate dal pannello
+- Manifesto-di-Caborca.pdf
+
+Passi (una volta sola, li facciamo insieme)
+1. Crea un account gratuito su github.com e un repository chiamato "caborca"; carica dentro tutta questa cartella.
+2. Crea un account gratuito su netlify.com e collega il repository: il sito va online.
+3. In Netlify: Site configuration > Access & security > OAuth > Install provider > GitHub.
+4. (Già fatto: admin/config.yml punta a rivistacaborca/caborca e a caborca.it.)
+5. Vai su www.tuodominio.it/admin, entra con GitHub e scrivi il primo articolo.
+
+Nel pannello
+- Ogni articolo ha: titolo, sottotitolo, rubrica, autore, data, foto di copertina, audio, testo.
+- Nel testo, con il pulsante "+", inserisci: Foto (larga, nel testo o di lato), Galleria, Nota a margine.
+- Parola difficile: scrivi {parola|spiegazione}.
+- Quando salvi e pubblichi, dopo circa un minuto l'articolo è sul sito.
+- Finché nel pannello non c'è nessun articolo pubblicato, il sito mostra i testi di prova.
