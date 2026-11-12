@@ -934,6 +934,10 @@ body.leggendo{background:var(--a-bg)!important}
   body.con-badge{padding-bottom:140px}
   body.con-badge:not(.leggendo) .avviso-lingua{bottom:146px}
 }
+.voce.con-foto{display:grid!important;grid-template-columns:1fr 140px;column-gap:20px;align-items:start}
+.voce.con-foto>*{grid-column:1}
+.voce.con-foto .thumb{grid-column:2;grid-row:1/span 3;width:140px;aspect-ratio:4/3;object-fit:cover;cursor:pointer}
+@media (max-width:600px){.voce.con-foto{grid-template-columns:1fr 92px;column-gap:14px}.voce.con-foto .thumb{width:92px}}
 </style>
 </head>
 <body>
@@ -1392,7 +1396,7 @@ let filtro={da:0,a:999}, query='';
 function voceHTML(t){
   const letto=leggiM('letti',[]).includes(t.id);
   const sg=leggiM('segno-'+t.id,null), inCorso=sg&&sg.pct>=3&&sg.pct<95;
-  return `<div class="voce" data-id="${t.id}">
+  return `<div class="voce${t.cover?' con-foto':''}" data-id="${t.id}">${t.cover?`<img class="thumb" src="${src(t.cover.k)}" alt="" onclick="apri('${t.id}')">`:''}
     <div class="v-meta"><span class="cat" onclick="vaiRubrica('${t.cat}')">${esc(nomeRubrica(t.cat))}</span><span>${esc(t.aut)}</span><span>${t.min} min</span>${letto?'<span class="letto">letto</span>':inCorso?'<span class="letto">'+Math.round(sg.pct)+'%</span>':''}</div>
     <h4 onclick="apri('${t.id}')">${esc(t.tit)}</h4>
     <p onclick="apri('${t.id}')">${esc(t.dek)}</p></div>`;
