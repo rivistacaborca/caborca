@@ -925,6 +925,13 @@ body.leggendo{background:var(--a-bg)!important}
 .man-fine{display:block;margin:40px auto 10px}
 .imbuto{display:block;max-width:100%;height:auto;margin:40px 0 0;overflow:visible;color:var(--h-testo)}
 .ev-vuota{font-family:var(--testata,var(--libro));font-size:24px;text-align:center;color:var(--h-tenue);padding:30px 0}
+
+/* spazio per il badge di Netlify, se c'è: la barra sale sopra di lui */
+@media (max-width:760px){
+  body.con-badge .tabbar{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+  body.con-badge{padding-bottom:140px}
+  body.con-badge:not(.leggendo) .avviso-lingua{bottom:146px}
+}
 </style>
 </head>
 <body>
@@ -940,7 +947,7 @@ body.leggendo{background:var(--a-bg)!important}
 <div class="avviso-lingua nascosto" id="avvisoLingua"><p id="avvisoTesto"></p><button onclick="chiudiAvvisoLingua()" aria-label="Chiudi">✕</button></div>
 <div id="home">
   <div class="segnale"><div class="scorre">
-    &nbsp;CABORCA · rivista di letteratura · saggi / contemporaneo / racconti / poesia / libri / film · le proposte sono aperte · CABORCA · rivista di letteratura · saggi / contemporaneo / racconti / poesia / libri / film · le proposte sono aperte · &nbsp;
+    &nbsp;CABORCA · rivista di letteratura · saggi / contemporaneo / racconti / poesia / libri · le proposte sono aperte · CABORCA · rivista di letteratura · saggi / contemporaneo / racconti / poesia / libri · le proposte sono aperte · &nbsp;
   </div></div>
 
   <div class="h-barra"><div class="wrap">
@@ -1040,7 +1047,7 @@ body.leggendo{background:var(--a-bg)!important}
       <li><b>Contemporaneo</b>: il presente, guardato da vicino.</li>
       <li><b>Racconti</b>: storie brevi, ritrovate, dimenticate e tradotte per la prima volta.</li>
       <li><b>Poesia</b>: voci e forme della poesia.</li>
-      <li><b>Libri</b> e <b>Film</b>: libri e film, tra novità e riscoperte.</li>
+      <li><b>Libri</b>: libri, tra novità e riscoperte.</li>
     </ul>
     <p>Caborca è stata fondata da Andrea Ferronato.</p>
     <h4>Contatti</h4>
@@ -1182,7 +1189,7 @@ body.leggendo{background:var(--a-bg)!important}
 
 <div class="velo nascosto" id="fCollabora"><div class="finestra">
   <h3>Collabora</h3>
-  <p class="intro-c">Leggiamo tutto. Cerchiamo saggi, racconti, poesie, recensioni di libri e film.</p>
+  <p class="intro-c">Leggiamo tutto. Cerchiamo saggi, racconti, poesie, recensioni di libri.</p>
   <p class="intro-c">Per domande: <a style="border-bottom:1px solid currentColor" href="mailto:rivistacaborca@gmail.com">rivistacaborca@gmail.com</a>. Puoi scriverci anche su Instagram: <a href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor">@rivistacaborca</a></p>
   <div class="righe"><button class="chiudi" onclick="chiudiFinestre()">chiudi</button><button class="btn-a" onclick="apriFinestra('fManda')">proponi un testo</button></div>
 </div></div>
@@ -1193,7 +1200,7 @@ body.leggendo{background:var(--a-bg)!important}
   <form onsubmit="this.innerHTML='<p style=&quot;font-size:17px;color:#16191a&quot;>Grazie, il tuo testo è arrivato. Ti abbiamo mandato una email di conferma.</p>';return false">
     <input placeholder="nome e cognome" required>
     <input type="email" placeholder="email" required>
-    <select required><option value="">rubrica…</option><option>Saggi</option><option>Contemporaneo</option><option>Racconti</option><option>Poesia</option><option>Libri</option><option>Film</option><option>Altro</option></select>
+    <select required><option value="">rubrica…</option><option>Saggi</option><option>Contemporaneo</option><option>Racconti</option><option>Poesia</option><option>Libri</option><option>Altro</option></select>
     <input placeholder="titolo del testo">
     <textarea placeholder="due righe su di te (e, se vuoi, incolla qui il testo)"></textarea>
     <label class="file-c">allega il testo (Word, PDF, ODT)<input type="file" accept=".doc,.docx,.pdf,.odt,.rtf,.txt"></label>
@@ -1358,8 +1365,7 @@ const RUBRICHE=[
  {k:'contemporaneo',n:'Contemporaneo',d:'Saggi brevi sul presente: quello che succede, letto da vicino.'},
  {k:'racconto',n:'Racconti',d:'Storie brevi, nuove, inedite.'},
  {k:'poesia',n:'Poesia',d:'Versi, uno alla volta.'},
- {k:'libri',n:'Libri',d:'Recensioni, riletture, consigli da chi legge.'},
- {k:'film',n:'Film',d:'Il cinema visto da chi legge.'}
+ {k:'libri',n:'Libri',d:'Recensioni, riletture, consigli da chi legge.'}
 ];
 const nomeRubrica=k=>(RUBRICHE.find(r=>r.k===k)||{n:k}).n;
 TESTI.forEach(t=>{if(t.cat==='letture')t.cat='libri'});
@@ -1914,6 +1920,31 @@ function caricaDalPannello(){
 disegnaArchivio(); caricaDalPannello();
 (function(){let h='';try{h=location.hash.slice(1)}catch(e){}if(h==='manifesto'||TESTI.some(t=>t.id===h)){storia('replaceState',h);mostra(h)}})();
 
+</script>
+<script>
+/* Il badge "Powered by Netlify" copre l'angolo in basso a destra.
+   Se c'è un elemento estraneo in quel punto, alziamo la barra in basso. */
+(function(){
+  var nostri=new WeakSet();
+  document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('body *').forEach(function(e){nostri.add(e)})});
+  function controlla(){
+    var b=document.body; if(!b) return;
+    var tab=document.querySelector('.tabbar');
+    if(!tab||getComputedStyle(tab).display==='none'){b.classList.remove('con-badge');return}
+    b.classList.remove('con-badge');
+    var trovato=false;
+    for(var dy=8;dy<=96&&!trovato;dy+=8){for(var dx=30;dx<=120&&!trovato;dx+=45){
+      var el=document.elementFromPoint(window.innerWidth-dx,window.innerHeight-dy);
+      if(!el||tab.contains(el)||el===tab||el===document.body||el===document.documentElement)continue;
+      var st=el;while(st&&st!==document.body&&getComputedStyle(st).position!=='fixed')st=st.parentElement;
+      if(st&&st!==document.body&&!nostri.has(st))trovato=true;
+    }}
+    if(trovato)b.classList.add('con-badge');
+  }
+  window.addEventListener('load',function(){[500,1500,3000,6000].forEach(function(t){setTimeout(controlla,t)})});
+  window.addEventListener('resize',controlla);
+  document.addEventListener('click',function(){setTimeout(controlla,400)});
+})();
 </script>
 </body>
 </html>
