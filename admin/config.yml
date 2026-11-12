@@ -1,10 +1,11 @@
 # Pannello di Caborca (Decap CMS)
-# Da completare quando il sito è online: il nome del repository GitHub e il dominio.
+# Il sito è ospitato su GitHub Pages; l'accesso al pannello passa da Netlify (solo per il login).
 backend:
   name: github
   repo: rivistacaborca/caborca
   branch: main
   base_url: https://api.netlify.com
+  site_domain: rivistacaborca.netlify.app
 locale: it
 site_url: https://caborca.it
 media_folder: foto
@@ -37,7 +38,6 @@ collections:
                   - {label: Racconti, value: racconto}
                   - {label: Poesia, value: poesia}
                   - {label: Libri, value: libri}
-                  - {label: Film, value: film}
               - {name: autore, label: Autore, widget: string}
               - {name: data, label: "Data di pubblicazione", widget: datetime, date_format: "DD/MM/YYYY", time_format: false}
               - {name: copertina, label: "Foto di copertina", widget: image, required: false}
