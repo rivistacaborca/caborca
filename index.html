@@ -933,6 +933,12 @@ body.leggendo{background:var(--a-bg)!important}
   body.con-badge{padding-bottom:140px}
   body.con-badge:not(.leggendo) .avviso-lingua{bottom:146px}
 }
+
+/* pagina Collabora */
+.pl-azioni{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 8px}
+.pl-azioni .btn-a{font-family:var(--mono);color:var(--h-testo);border-bottom:1px solid;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:4px 0;background:none;cursor:pointer}
+.pl-azioni{gap:26px!important}
+.pl-nota{font-size:14px;opacity:.75}
 </style>
 </head>
 <body>
@@ -953,7 +959,7 @@ body.leggendo{background:var(--a-bg)!important}
 
   <div class="h-barra"><div class="wrap">
     <span class="sigla" translate="no" onclick="window.scrollTo(0,0)"><span class="lg lg-barra"></span><span class="sigla-t">Caborca</span></span>
-    <span class="link-alto"><a onclick="apriPagina('paginaChi')">chi siamo</a><a onclick="apriPagina('paginaManifesto')">manifesto</a><a onclick="apriFinestra('fCollabora')">collabora</a><a class="ig-alto" href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener" aria-label="Caborca su Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a></span>
+    <span class="link-alto"><a onclick="apriPagina('paginaChi')">chi siamo</a><a onclick="apriPagina('paginaManifesto')">manifesto</a><a onclick="apriPagina('paginaCollabora')">collabora</a><a class="ig-alto" href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener" aria-label="Caborca su Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a></span>
     <div class="dx-barra"><button class="btn-linea menu-tel" onclick="sorprendimi()">a caso</button><button class="luce-home" id="bLuceHome" aria-label="Prima pagina chiara o scura" title="Chiara o scura">☀</button></div>
   </div>
     <nav class="rubriche" id="rubriche" aria-label="Rubriche"></nav>
@@ -1001,7 +1007,7 @@ body.leggendo{background:var(--a-bg)!important}
     <footer class="h-footer">
       <span class="lg lg-piede"></span>
       <span>Caborca · rivista di letteratura</span>
-      <span><a onclick="apriFinestra('fManda')">manda un testo</a> · <a onclick="apriFinestra('fApp')">installa sul telefono</a> · <a onclick="apriPagina('paginaManifesto')">manifesto</a> · <a onclick="apriPagina('paginaChi')">chi siamo</a> · <a href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener">instagram</a> · <a onclick="apriPagina('paginaPrivacy')">privacy</a></span>
+      <span><a onclick="apriPagina('paginaCollabora')">manda un testo</a> · <a onclick="apriFinestra('fApp')">installa sul telefono</a> · <a onclick="apriPagina('paginaManifesto')">manifesto</a> · <a onclick="apriPagina('paginaChi')">chi siamo</a> · <a href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener">instagram</a> · <a onclick="apriPagina('paginaPrivacy')">privacy</a></span>
     </footer>
   </main>
 </div>
@@ -1055,6 +1061,26 @@ body.leggendo{background:var(--a-bg)!important}
     <p>Email: <a href="mailto:rivistacaborca@gmail.com">rivistacaborca@gmail.com</a><br>Instagram: <a href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener">@rivistacaborca</a></p>
   </div>
 </section>
+<section class="pagina-lettera pagina-testo nascosto" id="paginaCollabora" aria-label="Collabora">
+  <div class="pl-barra"><button onclick="chiudiPagina('paginaCollabora')">← indietro</button></div>
+  <div class="pl-corpo">
+    <span class="pl-logo lg"></span>
+    <h2>Collabora</h2>
+    <p>Caborca pubblica saggi, racconti, poesie, recensioni di libri e traduzioni. Se vuoi proporci un testo, puoi mandarcelo per email.</p>
+    <h4>Come mandarci un testo</h4>
+    <p>Scrivi a <a href="mailto:rivistacaborca@gmail.com?subject=Proposta%20per%20Caborca">rivistacaborca@gmail.com</a> e metti nella email:</p>
+    <ul>
+      <li><b>nell'oggetto</b>: la rubrica e il titolo, per esempio «Racconti · Il titolo»;</li>
+      <li><b>in allegato</b>: il testo in PDF;</li>
+      <li><b>nel messaggio</b>: due righe su di te.</li>
+    </ul>
+    <p>Mandaci solo testi tuoi e inediti.</p>
+    <p class="pl-azioni"><a class="btn-a" href="mailto:rivistacaborca@gmail.com?subject=Proposta%20per%20Caborca">scrivi a Caborca</a> <button class="btn-a" onclick="copiaIndirizzo(this)">copia l'indirizzo</button></p>
+    <h4>Domande</h4>
+    <p>Puoi scriverci alla stessa email o su Instagram: <a href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener">@rivistacaborca</a>.</p>
+    <p class="pl-nota">Per sapere come trattiamo i tuoi dati, leggi l'<a onclick="chiudiPagina('paginaCollabora');apriPagina('paginaPrivacy')" style="cursor:pointer">informativa sulla privacy</a>.</p>
+  </div>
+</section>
 <section class="pagina-lettera pagina-testo nascosto" id="paginaPrivacy" aria-label="Informativa privacy">
   <div class="pl-barra"><button onclick="chiudiPagina('paginaPrivacy')">← indietro</button></div>
   <div class="pl-corpo">
@@ -1065,7 +1091,7 @@ body.leggendo{background:var(--a-bg)!important}
     <h4>Quali dati raccogliamo</h4>
     <ul>
       <li><b>Newsletter</b>: il tuo indirizzo email, solo se ti iscrivi e quindi con il tuo consenso. Serve a mandarti la newsletter. La gestiamo con MailerLite, che conserva gli indirizzi su server nell’Unione Europea. Puoi cancellarti in ogni momento dal link in fondo a ogni email.</li>
-      <li><b>Proposte di testi</b>: nome, email, il testo e le informazioni che ci mandi. Li trattiamo perché sei tu a mandarceli per farci valutare il testo: li usiamo solo per valutare la proposta ed eventualmente contattarti, e li cancelliamo entro 12 mesi se il testo non viene pubblicato. Il modulo passa attraverso il servizio FormSubmit, che ci inoltra la proposta via email (Gmail).</li>
+      <li><b>Proposte di testi</b>: nome, email, il testo e le informazioni che ci mandi. Li trattiamo perché sei tu a mandarceli per farci valutare il testo: li usiamo solo per valutare la proposta ed eventualmente contattarti, e li cancelliamo entro 12 mesi se il testo non viene pubblicato. Le proposte arrivano via email alla casella della rivista (Gmail).</li>
     </ul>
     <h4>Cosa resta sul tuo telefono</h4>
     <p>Alcune preferenze, come il tema chiaro o scuro, la grandezza del testo, le frasi che evidenzi e il punto in cui hai smesso di leggere, vengono salvate solo nel tuo browser. Non ci arrivano e non le usiamo per profilarti. Puoi cancellarle svuotando i dati del sito dal browser.</p>
@@ -1186,34 +1212,6 @@ body.leggendo{background:var(--a-bg)!important}
   <p>Perché esistiamo, cosa crediamo, a chi scriviamo. Da leggere, stampare o mandare a qualcuno.</p>
   <div class="man-anteprima"><span class="lg lg-man"></span><span class="man-t">Manifesto<br>di Caborca</span><span class="man-s"></span><span class="man-f">PDF</span></div>
   <div class="righe"><button class="chiudi" onclick="chiudiFinestre()">chiudi</button><a class="btn-a" href="Manifesto-di-Caborca.pdf" target="_blank" rel="noopener" download="Manifesto-di-Caborca.pdf" target="_blank" rel="noopener">apri il PDF</a></div>
-</div></div>
-
-<div class="velo nascosto" id="fCollabora"><div class="finestra">
-  <h3>Collabora</h3>
-  <p class="intro-c">Leggiamo tutto. Cerchiamo saggi, racconti, poesie, recensioni di libri.</p>
-  <p class="intro-c">Per domande: <a style="border-bottom:1px solid currentColor" href="mailto:rivistacaborca@gmail.com">rivistacaborca@gmail.com</a>. Puoi scriverci anche su Instagram: <a href="https://www.instagram.com/rivistacaborca/" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor">@rivistacaborca</a></p>
-  <div class="righe"><button class="chiudi" onclick="chiudiFinestre()">chiudi</button><button class="btn-a" onclick="apriFinestra('fManda')">proponi un testo</button></div>
-</div></div>
-
-<div class="velo nascosto" id="fManda"><div class="finestra">
-  <h3>Proponi un testo</h3>
-  <p>Leggiamo con attenzione ogni proposta.</p>
-  <form id="formProposta" action="https://formsubmit.co/rivistacaborca@gmail.com" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="_subject" value="Caborca · nuova proposta di testo">
-    <input type="hidden" name="_next" value="https://caborca.it/?proposta=inviata">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_autoresponse" value="Grazie per averci mandato il tuo testo. L'abbiamo ricevuto e lo leggeremo con attenzione. — Caborca, rivista di letteratura">
-    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-    <input name="nome" placeholder="nome e cognome" required>
-    <input type="email" name="email" placeholder="email" required>
-    <select name="rubrica" required><option value="">rubrica…</option><option>Saggi</option><option>Contemporaneo</option><option>Racconti</option><option>Poesia</option><option>Libri</option><option>Altro</option></select>
-    <input name="titolo" placeholder="titolo del testo">
-    <textarea name="messaggio" placeholder="due righe su di te (e, se vuoi, incolla qui il testo)"></textarea>
-    <label class="file-c">allega il testo (Word, PDF, ODT)<input type="file" name="attachment" accept=".doc,.docx,.pdf,.odt,.rtf,.txt"></label>
-    <label class="l2-ok"><input type="checkbox" required><span>Il testo è mio e inedito, e ho letto l'<a onclick="event.preventDefault();chiudiFinestre();apriPagina('paginaPrivacy')" style="border-bottom:1px solid currentColor;cursor:pointer">informativa sulla privacy</a>.</span></label>
-    <div class="righe"><button type="button" class="chiudi" onclick="chiudiFinestre()">chiudi</button><button class="btn-a">invia la proposta</button></div>
-  </form>
 </div></div>
 
 <div class="velo nascosto" id="fApp"><div class="finestra">
@@ -1405,7 +1403,7 @@ function voceHTML(t){
 function disegnaArchivio(){
   const q=query.trim().toLowerCase();
   const lista=TESTI.filter(t=>(!rubrica||t.cat===rubrica)&&t.min>=filtro.da&&t.min<=filtro.a&&(!q||(t.tit+' '+t.aut+' '+t.dek+' '+t.cat+' '+pulito(t.corpo)).toLowerCase().includes(q)));
-  $('archivio').innerHTML=lista.length?lista.map(voceHTML).join(''):!TESTI.length?'<p class="vuoto">Qui compariranno i testi della rivista.</p>':(rubrica&&!q?'<p class="vuoto">La rubrica apre presto. Hai un testo adatto? <a onclick="apriFinestra(\'fManda\')"><u>Mandacelo</u></a>.</p>':'<p class="vuoto">Nessun testo trovato. Prova con un\'altra parola, o lasciati sorprendere.</p>');
+  $('archivio').innerHTML=lista.length?lista.map(voceHTML).join(''):!TESTI.length?'<p class="vuoto">Qui compariranno i testi della rivista.</p>':(rubrica&&!q?'<p class="vuoto">La rubrica apre presto. Hai un testo adatto? <a onclick="apriPagina(\'paginaCollabora\')"><u>Mandacelo</u></a>.</p>':'<p class="vuoto">Nessun testo trovato. Prova con un\'altra parola, o lasciati sorprendere.</p>');
   const R=RUBRICHE.find(r=>r.k===rubrica);
   $('titoloArchivio').textContent=R?R.n:'Indice'; $('descRubrica').textContent=R?R.d:'';
   disegnaRubriche();
@@ -1954,14 +1952,12 @@ disegnaArchivio(); caricaDalPannello();
 })();
 </script>
 <script>
-/* ritorno dopo l'invio di una proposta (FormSubmit rimanda qui) */
-window.addEventListener('load',function(){
-  if(location.search.indexOf('proposta=inviata')<0)return;
-  try{history.replaceState(null,'',location.pathname)}catch(e){}
-  var f=document.getElementById('formProposta');
-  if(f)f.outerHTML='<p style="font-size:17px;color:#16191a">Grazie, il tuo testo è arrivato. Ti abbiamo mandato una email di conferma.</p><div class="righe"><button class="chiudi" onclick="chiudiFinestre()">chiudi</button></div>';
-  if(typeof apriFinestra==='function')apriFinestra('fManda');
-});
+function copiaIndirizzo(b){
+  var t='rivistacaborca@gmail.com',vecchio=b.textContent;
+  function ok(){b.textContent='indirizzo copiato';setTimeout(function(){b.textContent=vecchio},2000)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){prompt('Copia l\'indirizzo:',t)})}
+  else prompt('Copia l\'indirizzo:',t);
+}
 </script>
 </body>
 </html>
