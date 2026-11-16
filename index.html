@@ -1211,7 +1211,7 @@ body.leggendo{background:var(--a-bg)!important}
   <h3>Il manifesto di Caborca</h3>
   <p>Perché esistiamo, cosa crediamo, a chi scriviamo. Da leggere, stampare o mandare a qualcuno.</p>
   <div class="man-anteprima"><span class="lg lg-man"></span><span class="man-t">Manifesto<br>di Caborca</span><span class="man-s"></span><span class="man-f">PDF</span></div>
-  <div class="righe"><button class="chiudi" onclick="chiudiFinestre()">chiudi</button><a class="btn-a" href="Manifesto-di-Caborca.pdf" target="_blank" rel="noopener" download="Manifesto-di-Caborca.pdf" target="_blank" rel="noopener">apri il PDF</a></div>
+  <div class="righe"><button class="chiudi" onclick="chiudiFinestre()">chiudi</button><a class="btn-a" href="/Manifesto-di-Caborca.pdf" target="_blank" rel="noopener" download="Manifesto-di-Caborca.pdf" target="_blank" rel="noopener">apri il PDF</a></div>
 </div></div>
 
 <div class="velo nascosto" id="fApp"><div class="finestra">
@@ -1469,9 +1469,12 @@ function playEp(n){
 const prog=$('progresso'), pctEl=$('pct');
 /* cronologia: in alcune anteprime (come quella dell'app) il browser la blocca, quindi tutto è protetto */
 let storiaOk=true;
+/* sul sito pubblicato ogni articolo ha una pagina sua: caborca.it/testi/titolo/ */
+const PAGINE_VERE=/^https?:/.test(location.protocol)&&!!document.querySelector('meta[name="caborca-pagine"]');
+function indirizzo(id){return PAGINE_VERE&&id!=='manifesto'?'/testi/'+id+'/':'#'+id}
 function storia(metodo,id){
   if(!storiaOk)return;
-  try{history[metodo]({art:id},'','#'+id);return}catch(e){}
+  try{history[metodo]({art:id},'',indirizzo(id));return}catch(e){}
   try{history[metodo]({art:id},'');return}catch(e){}
   storiaOk=false;
 }
@@ -1518,6 +1521,7 @@ function chiudi(){if(statoArt()){try{history.back();return}catch(e){}}nascondi()
 function nascondi(){
   fermaVoce();esciFocus();chiudiPannelli();chiudiFinestre();
   b.classList.remove('leggendo','pag-manifesto'); root.classList.remove('leggendo-html');prog.style.width=0;document.title='Caborca — rivista di letteratura';
+  if(PAGINE_VERE&&location.pathname.indexOf('/testi/')===0){try{history.replaceState(null,'','/')}catch(e){}}
   disegnaArchivio();requestAnimationFrame(()=>window.scrollTo(0,homeY));
 }
 addEventListener('popstate',e=>{if(storiaOk&&e.state&&e.state.art)mostra(e.state.art);else if(b.classList.contains('leggendo'))nascondi()});
@@ -1908,7 +1912,7 @@ function mdHTML(md,id){
 const slug=s=>(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
 function caricaDalPannello(){
   if(!/^https?:/.test(location.protocol))return;
-  fetch('contenuti/testi.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(d=>{
+  fetch('/contenuti/testi.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(d=>{
     const lista=((d&&d.testi)||[]).filter(x=>x.pubblicato!==false&&x.titolo);
     if(!lista.length)return;
     lista.sort((a,b)=>(b.data||'').localeCompare(a.data||''));
@@ -1918,7 +1922,7 @@ function caricaDalPannello(){
         cover:x.copertina?{k:x.copertina,did:x.didascalia_copertina||''}:null,audio:x.audio||'',corpo:mdHTML(x.corpo,id)}});
     TESTI.length=0;TESTI.push(...nuovi);aperto=TESTI[0].id;
     disegnaEvidenza();disegnaArchivio();
-    let h='';try{h=location.hash.slice(1)}catch(e){}
+    let h='';try{h=window.CABORCA_TESTO||location.hash.slice(1)}catch(e){}
     if(TESTI.some(t=>t.id===h))mostra(h);
   }).catch(()=>{});
 }
