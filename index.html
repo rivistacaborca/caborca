@@ -939,6 +939,13 @@ body.leggendo{background:var(--a-bg)!important}
 .pl-azioni .btn-a{font-family:var(--mono);color:var(--h-testo);border-bottom:1px solid;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:4px 0;background:none;cursor:pointer}
 .pl-azioni{gap:26px!important}
 .pl-nota{font-size:14px;opacity:.75}
+
+/* indice: foto piccola accanto a ogni testo */
+.voce.con-foto{display:grid!important;grid-template-columns:1fr 112px;column-gap:18px;align-items:start}
+.voce.con-foto .thumb{grid-column:2;grid-row:1;width:112px;height:auto;aspect-ratio:4/3;object-fit:cover;cursor:pointer;margin-top:4px}
+.voce.con-foto .v-testo{grid-column:1;grid-row:1;min-width:0}
+@media(max-width:600px){.voce.con-foto{grid-template-columns:1fr 88px;column-gap:14px}.voce.con-foto .thumb{width:88px}}
+@media(min-width:1000px){.voce.con-foto{grid-template-columns:1fr 132px}.voce.con-foto .thumb{width:132px}}
 </style>
 </head>
 <body>
@@ -1395,10 +1402,11 @@ let filtro={da:0,a:999}, query='';
 function voceHTML(t){
   const letto=leggiM('letti',[]).includes(t.id);
   const sg=leggiM('segno-'+t.id,null), inCorso=sg&&sg.pct>=3&&sg.pct<95;
-  return `<div class="voce" data-id="${t.id}">
-    <div class="v-meta"><span class="cat" onclick="vaiRubrica('${t.cat}')">${esc(nomeRubrica(t.cat))}</span><span>${esc(t.aut)}</span><span>${t.min} min</span>${letto?'<span class="letto">letto</span>':inCorso?'<span class="letto">'+Math.round(sg.pct)+'%</span>':''}</div>
+  return `<div class="voce${t.cover?' con-foto':''}" data-id="${t.id}">
+    ${t.cover?`<img class="thumb" src="${src(t.cover.k)}" alt="" loading="lazy" onclick="apri('${t.id}')">`:''}
+    <div class="v-testo"><div class="v-meta"><span class="cat" onclick="vaiRubrica('${t.cat}')">${esc(nomeRubrica(t.cat))}</span><span>${esc(t.aut)}</span><span>${t.min} min</span>${letto?'<span class="letto">letto</span>':inCorso?'<span class="letto">'+Math.round(sg.pct)+'%</span>':''}</div>
     <h4 onclick="apri('${t.id}')">${esc(t.tit)}</h4>
-    <p onclick="apri('${t.id}')">${esc(t.dek)}</p></div>`;
+    <p onclick="apri('${t.id}')">${esc(t.dek)}</p></div></div>`;
 }
 function disegnaArchivio(){
   const q=query.trim().toLowerCase();
